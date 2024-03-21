@@ -1,0 +1,92 @@
+<%- include('./partials/header.ejs') %>
+
+<div class="container center-content">
+  <div class="form-container">
+    <h1 class="text-center mb-4">Select Supervisor</h1>
+    <form action="/request-supervision" method="post">
+      <div class="form-group">
+        <label for="ideas">Ideas (up to 3):</label>
+        <div class="form-group">
+          <label for="idea_1">Idea 1:</label>
+          <textarea
+            class="form-control"
+            id="idea_1"
+            name="idea_1"
+            rows="1"
+            cols="50"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="idea_2">Idea 2:</label>
+          <textarea
+            class="form-control"
+            id="idea_2"
+            name="idea_2"
+            rows="1"
+            cols="50"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="idea_3">Idea 3:</label>
+          <textarea
+            class="form-control"
+            id="idea_3"
+            name="idea_3"
+            rows="1"
+            cols="50"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="choice_1">Preferred Supervisor 1:</label>
+        <select class="form-control" name="choice_1" id="choice_1">
+          <option value="none" selected disabled hidden>
+            Select 1st Choice
+          </option>
+          <% supervisors.map((supervisor) => { %>
+          <option value="<%= supervisor.teacher_id %>">
+            <%= supervisor.name %> (<%= supervisor.teacher_id %>)
+          </option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="choice_2">Preferred Supervisor 2:</label>
+        <select class="form-control" name="choice_2" id="choice_2">
+          <option value="none" selected disabled hidden>
+            Select 2nd Choice
+          </option>
+          <% supervisors.map((supervisor) => { %>
+          <option value="<%= supervisor.teacher_id %>">
+            <%= supervisor.name %> (<%= supervisor.teacher_id %>)
+          </option>
+          <% }); %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="choice_3">Preferred Supervisor 3:</label>
+        <select class="form-control" name="choice_3" id="choice_3">
+          <option value="none" selected disabled hidden>
+            Select 3rd Choice
+          </option>
+          <% supervisors.map((supervisor) => { %>
+          <option value="<%= supervisor.teacher_id %>">
+            <%= supervisor.name %> (<%= supervisor.teacher_id %>)
+          </option>
+          <% }); %>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block mt-4">
+        Request Supervision
+      </button>
+    </form>
+  </div>
+</div>
+
+<%- include('./partials/footer.ejs') %>
