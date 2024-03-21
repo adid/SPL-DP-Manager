@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+
 const port = 8000;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+
 
 // Database Pool
 const pool = require("./database/db");
@@ -13,7 +15,6 @@ const pool = require("./database/db");
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 
 // EJS
 app.set("views", __dirname + "/views");
@@ -23,6 +24,7 @@ app.set("view engine", "ejs");
 // Static Files
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views"));
+
 
 // Root Route
 app.get("/", (req, res) => {
