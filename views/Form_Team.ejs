@@ -1,0 +1,75 @@
+<%- include('./partials/header.ejs') %>
+
+<div class="container">
+  <h1 class="text-center mb-4">Form Team</h1>
+  <form action="/create-team" method="post">
+    <div class="form-group">
+      <label for="team_name">Team Name:</label>
+      <input type="text" class="form-control" id="team_name" name="team_name" />
+    </div>
+
+    <div class="form-group">
+      <label for="team_leader">Team Leader:</label>
+      <select class="form-control" id="team_leader" name="team_leader">
+        <option value="none" selected disabled hidden>
+          Select Team Leader
+        </option>
+        <% students.map((student) => { %>
+        <option value="<%= student.student_id %>">
+          <%= student.first_name %> <%= student.last_name %> (<%=
+          student.student_id %>)
+        </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="student_2">Member 2:</label>
+      <select class="form-control" id="student_2" name="student_2">
+        <option value="none" selected disabled hidden>Select 2nd Member</option>
+        <% students.map((student) => { %>
+        <option value="<%= student.student_id %>">
+          <%= student.first_name %> <%= student.last_name %> (<%=
+          student.student_id %>)
+        </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="student_3">Member 3:</label>
+      <select class="form-control" id="student_3" name="student_3">
+        <option value="none" selected disabled hidden>Select 3rd Member</option>
+        <% students.map((student) => { %>
+        <option value="<%= student.student_id %>">
+          <%= student.first_name %> <%= student.last_name %> (<%=
+          student.student_id %>)
+        </option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="team_category">Team Category:</label>
+      <select class="form-control" id="team_category" name="team_category">
+        <option value="" disabled selected>Select Category</option>
+        <option value="SPL">SPL</option>
+        <option value="DP">DP</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="academic_year">Academic Year:</label>
+      <input
+        type="number"
+        class="form-control"
+        id="academic_year"
+        name="academic_year"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-info">Create Team</button>
+  </form>
+</div>
+
+<%- include('./partials/footer.ejs') %>
