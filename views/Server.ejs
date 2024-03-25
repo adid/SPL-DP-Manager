@@ -1,0 +1,107 @@
+// Admin Route
+app.get("/admin-dashboard", authMiddleware, (req, res) => {
+  const { userInfo } = req;
+  // console.log(userInfo);
+
+  
+
+  res.render("Admin_Dashboard.ejs", {
+    title: "Admin Dashboard",
+    admin: userInfo,
+  });
+});
+//nahiyan
+
+// Student Dashboard
+app.get("/student-dashboard", authMiddleware, (req, res) => {
+  const { userInfo } = req;
+  // console.log(userInfo);
+
+  res.render("Student_dashboard.ejs", {
+    title: "Student Dashboard",
+    student: userInfo,
+  });
+});
+
+app.get("/form-team", async (req, res) => {
+  const availableStudents = await getAvailableStudents();
+  // console.log(availableStudents);
+
+  res.render("Form_Team.ejs", {
+    title: "Form Team",
+    students: availableStudents,
+  });
+});
+
+// Teams Route
+app.get("/teams", async (req, res) => {
+  try {
+    const allTeams = await pool.query("select * from team");
+    const teams = allTeams.rows;
+
+    res.render("teams.ejs", {
+      title: "All Teams",
+      allTeams: teams,
+    });
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+app.post("/create-team", async (req, res) => {
+  try {
+    const {
+      team_name,
+      team_leader,
+      student_2,
+      student_3,
+      team_category,
+      academic_year,
+    } = req.body;
+
+    // console.log(req.body);
+
+    const team_leader_id = Number(team_leader);
+    const student_2_id = Number(student_2);
+    const student_3_id = Number(student_3);
+    const academic_year_int = Number(academic_year);
+
+    const newTeam = await pool.query(
+      "insert into team ( team_name, team_leader_id, student_2_id, student_3_id, category, academic_year) values ($1, $2, $3, $4, $5, $6)",
+      [
+        team_name,
+        team_leader_id,
+        student_2_id,
+        student_3_id,
+        team_category,
+        academic_year_int,
+      ]
+    );
+
+    console.log("Team created");
+
+    res.redirect("/teams");
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+const getAllSuperVisors = async () => {
+  try {
+    const allSupervisors = await pool.query(
+      "SELECT first_name || ' ' || last_name as name, T.teacher_id, category, assigned_teams, selected_teams, academic_year FROM Teacher T JOIN Supervisor S ON T.teacher_id = S.teacher_id"
+    );
+    return allSupervisors.rows;
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
+app.get("/select-supervisor", async (req, res) => {
+  const supervisors = await getAllSuperVisors();
+
+  res.render("Select_Supervisor.ejs", {
+    title: "Select Supervisor",
+    supervisors: supervisors,
+  });
+});
