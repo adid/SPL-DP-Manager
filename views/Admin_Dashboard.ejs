@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -239,3 +240,22 @@
 </body>
 
 </html>
+=======
+<%- include('./partials/header.ejs') %>
+
+<div>
+  <h1>Admin Dashboard</h1>
+  <p>Welcome, <%= admin.id %> - <%= admin.username %> - <%= admin.role %></p>
+
+  <div>
+    <a href="/students">View Student List</a>
+    <a href="/teachers">View Teacher List</a>
+    <a href="/supervisors">Upload Supervisor Load</a>
+    <a href="/teams">View Teams</a>
+  </div>
+</div>
+
+<a class="btn btn-warning" href="/user-logout">Logout</a>
+
+<%- include('./partials/footer.ejs') %>
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831

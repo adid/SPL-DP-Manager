@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -209,3 +210,38 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+=======
+<%- include('../partials/header.ejs') %>
+
+<section class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4 shadow-lg rounded-lg border-0">
+                <h2 class="text-center mb-4 text-primary">Welcome to SPL/DP Manager</h2>
+                <h4 class="card-title text-center mb-4 text-secondary">Sign in to your account</h4>
+                <form action="/user-login" method="post">
+                    <div class="mb-3">
+                        <label for="user_id" class="form-label">User ID</label>
+                        <input type="text" name="user_id" id="user_id" class="form-control" placeholder="Enter your ID" required="">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Enter your password" required="">
+                        <% if (error) { %>
+                            <p id="error" class="text-danger">
+                                <span>Oh, snap!</span>
+                                <%= error %>
+                            </p>
+                        <% } %>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-block btn-outline-success">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer.ejs') %>
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831

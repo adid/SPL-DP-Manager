@@ -1,12 +1,20 @@
 const express = require("express");
 const app = express();
+<<<<<<< HEAD
+=======
+
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831
 const port = 8000;
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+<<<<<<< HEAD
 const session = require("express-session");
 const flash = require("connect-flash");
+=======
+
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831
 
 // Database Pool
 const pool = require("./database/db");
@@ -39,6 +47,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/views"));
 
+<<<<<<< HEAD
 // Login Route
 app.get("/", (req, res) => {
   res.render("dashboard/login.ejs", {
@@ -47,10 +56,27 @@ app.get("/", (req, res) => {
   });
 });
 
+=======
+
+// Root Route
+app.get("/", (req, res) => {
+  res.send("Goodbye World 🔥");
+});
+
+// Login Route
+app.get("/login", (req, res) => {
+  res.render("dashboard/login.ejs", {
+    title: "Login",
+    error: "",
+  });
+});
+
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831
 const loginUser = async (req, res) => {
   try {
     const { user_id, password } = req.body;
 
+<<<<<<< HEAD
     if (!user_id || !password) {
       return res.status(400).render("dashboard/login", {
         title: "Login",
@@ -69,6 +95,19 @@ const loginUser = async (req, res) => {
       });
     }
 
+=======
+    const userQuery = SELECT * FROM users WHERE user_id = '${user_id}';
+    const userResult = await pool.query(userQuery);
+    const user = userResult.rows[0];
+
+    if (!user) {
+      return res.status(400).render("dashboard/login", {
+        title: "Login",
+        error: "User not found",
+      });
+    }
+
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831
     const passwordMatch = password === user.password;
 
     if (!passwordMatch) {
@@ -134,6 +173,7 @@ const authMiddleware = async (req, res, next) => {
 // Logout Route
 const logoutUser = (req, res) => {
   res.clearCookie("userToken");
+<<<<<<< HEAD
   return res.status(200).redirect("/");
 };
 
@@ -822,3 +862,9 @@ app.get("/form-team", authMiddleware, async (req, res) => {
     messages: req.flash(),
   });
 });
+=======
+  return res.status(200).redirect("/login");
+};
+
+app.get("/user-logout", logoutUser);
+>>>>>>> f2a017ad2f563febaa3f01ff9e37379eef2ec831
