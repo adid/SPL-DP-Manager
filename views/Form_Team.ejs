@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Form Team</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="icons/iut-logo.jpeg" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-image: url('https://cdn.dribbble.com/users/612155/screenshots/1718172/media/48a62c417f5f070ea7683b964d83c1ed.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #000000; /* Set text color to white */
+            font-family: Arial, sans-serif; /* Use a sans-serif font */
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            color: #000000; /* Set label color to white */
+        }
+
+        option {
+            color: #000; /* Set option color to black */
+        }
+
+        select {
+            background-color: #fff; /* Set select background color to white */
+            color: #000; /* Set select text color to black */
+        }
+
+        .btn {
+            margin-top: 20px; /* Add margin-top to buttons */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <div class="container">
+            <img src="icons/iut-logo.jpeg" width="40" height="50" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand text-white" href="#">Form Team</a>
+        </div>
+    </nav>
+ 
+  
+    <!-- Form Team Section -->
+    <div class="container">
+        <h1 class="text-center mb-4">Form Team</h1>
+        <% if (messages.success) { %>
+            <div class="alert alert-success" role="alert">
+              <%= messages.success %>
+            </div>
+          <% } %>
+        <form action="/create-team" method="post">
+            <div class="form-group">
+                <label for="team_name">Team Name:</label>
+                <input type="text" class="form-control" id="team_name" name="team_name" />
+            </div>
+
+            <div class="form-group">
+                <label for="team_category">Team Category:</label>
+                <input type="text" class="form-control" id="team_category" name="team_category" value="<%= userStudent.category %>" readonly />
+            </div>
+            
+
+            <div class="form-group">
+                <label for="team_leader">Team Leader:</label>
+                <select class="form-control" id="team_leader" name="team_leader">
+                    <option value="none" selected disabled hidden>
+                        Select Team Leader
+                    </option>
+
+                    <option value="<%= user.id %>">
+                        <%= user.username %> (<%= user.id %>)
+                    </option>
+                </select>
+            </div>
+
+            <!-- Student 2 dropdown -->
+<div class="form-group">
+    <label for="student_2">Member 2:</label>
+    <select class="form-control" id="student_2" name="student_2">
+        <option value="none" selected disabled hidden>Select 2nd Member</option>
+        <% students.forEach((student) => { %>
+            <% if (student.category === userStudent.category) { %>
+                <option value="<%= student.student_id %>">
+                    <%= student.first_name %> <%= student.last_name %> (<%= student.student_id %>)
+                </option>
+            <% } %>
+        <% }); %>
+    </select>
+</div>
+
+<!-- Student 3 dropdown -->
+<div class="form-group">
+    <label for="student_3">Member 3:</label>
+    <select class="form-control" id="student_3" name="student_3">
+        <option value="none" selected disabled hidden>Select 3rd Member</option>
+        <% students.forEach((student) => { %>
+            <% if (student.category === userStudent.category) { %>
+                <option value="<%= student.student_id %>">
+                    <%= student.first_name %> <%= student.last_name %> (<%= student.student_id %>)
+                </option>
+            <% } %>
+        <% }); %>
+    </select>
+</div>
+
+            <div class="form-group">
+                <label for="academic_year">Academic Year:</label>
+                <input type="text" class="form-control" id="academic_year" name="academic_year" value="<%= userStudent.academic_year %>" readonly />
+            </div>
+            
+
+            <button type="submit" class="btn btn-info">Create Team</button>
+            <div class="col-md-12 text-end">
+                <a href="/student-dashboard" class="btn btn-primary mb-4">Back</a>
+            </div>
+        </form>
+    </div>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+  
+    <title>
+        <%= title %>
+    </title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="icons/iut-logo.jpeg" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="https://kit.fontawesome.com/ae360af17e.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Core theme CSS -->
+    <style>
+        .btn-custom {
+    font-size: 1.3rem;
+    background: hsl(241, 98%, 59%);
+    color: hsl(180, 6%, 97%);
+    box-shadow: 0 0px 0px hsla(190deg, 15%, 5%, .2);
+    transform: translateY(0);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    transition:
+        border-radius 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        transform 0.15s ease-out,
+        background 0.15s steps(4, jump-end);
+}
+
+.btn-custom:hover,
+.btn-custom:focus {
+    box-shadow: 0 4px 8px hsla(190deg, 15%, 5%, .2);
+    transform: translateY(-4px);
+    background: hsl(0, 76%, 59%);
+}
+
+
+
+
+
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2019/04/10/11/56/watercolor-4116932_1280.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-outline-primary {
+            color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+        
+
+        .footer {
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Adding opacity to the footer */
+            padding: 30px 0;
+            border-top: 1px solid #dee2e6;
+
+            bottom: 0;
+            width: 100%;
+            position: absolute;
+        }
+
+        .footer ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+
+        .footer ul li a {
+            color: #6c757d;
+            text-decoration: none;
+        }
+
+        .footer ul li a:hover {
+            color: #212529;
+        }
+
+        .custom-vh {
+            height: 71vh !important;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color:whitesmoke;
+            padding-top: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #dee2e6;
+        }
+
+        .sidebar-logo {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 20px;
+        }
+
+        .sidebar-item {
+            padding: 10px 15px;
+        }
+
+        .sidebar-link {
+            color: #212529;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-link:hover {
+            color: #0d6efd;
+        }
+
+        .sidebar-dropdown {
+            padding-left: 20px;
+        }
+
+        .sidebar-dropdown .sidebar-item {
+            padding-left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="icons/iut-logo.jpeg" width="40" height="60" alt="">
+            <a href="#" class="text-dark">SPL/DP Manager</a>
+        </div>
+        <ul class="sidebar-nav">
+            <li class="sidebar-item">
+                <a href="/students" class="sidebar-link">
+                    <i class="fas fa-users me-2"></i>
+                    View Student List
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/teachers" class="sidebar-link">
+                    <i class="fas fa-chalkboard-teacher me-2"></i>
+                    View Teacher List
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/supervisors" class="sidebar-link">
+                    <i class="fas fa-upload me-2"></i>
+                    Upload Supervisor Load
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a href="/teams" class="sidebar-link">
+                    <i class="fa fa-user me-2"></i>
+                    View Teams
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-md-8">
+                <div class="card p-4 shadow-lg rounded-lg border-0" style="background-color: rgba(255, 255, 255, 0.9); box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);">
+                    <h2 class="text-center mb-4 text-primary" style="font-size: 24px;">Admin Dashboard</h2>
+                    <p class="text-center mb-4" style="font-size: 18px; color: #333; font-weight: bold; text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);">
+                        Welcome, <span style="color: #007bff;"><%= admin.username %></span>!
+                        <br>
+                        <span style="font-size: 16px; color: #6c757d;">(ID: <%= admin.id %>, Role: <%= admin.role %>)</span>
+                    </p>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="/" class="btn btn-custom mt-4" style="font-size: 16px; border-radius: 10px;">Logout</a>
+
+                    </div>
+                </div>
+                
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Footer -->
+        <footer class="footer bg-primary text-white">
+            <div class="container justify-content-end">
+                <div class="row w-100 pe-0">
+                    <div class="col-lg-12 h-100 text-end text-lg-end pe-0">
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item"><a href="#!" class="text-white">About</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!" class="text-white">Contact</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!" class="text-white">Terms of Use</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!" class="text-white">Privacy Policy</a></li>
+                        </ul>
+                        <p class="text-muted small mb-4 mb-lg-0 pe-0">&copy; SPL-DP 2024. All Rights Reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
