@@ -1,0 +1,19 @@
+<%- include('../partials/header.ejs') %>
+
+<section>
+  <div>
+    <div>
+      <h1><%= status %></h1>
+      <p><%= message %></p>
+      <% if (error) { %>
+      <pre>
+                        <%= error.stack %>
+                    </pre
+      >
+      <% } %>
+      <a href="/dashboard"> Back to Dashboard </a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer.ejs') %>

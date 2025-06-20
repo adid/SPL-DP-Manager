@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Marks</title>
+    <link rel="stylesheet" href="/path/to/your/css/styles.css"> <!-- Add your CSS file -->
+</head>
+<body>
+    <h1>Update Marks</h1>
+    <form id="select-category-year-form" method="GET" action="/update-marks">
+        <label for="category">Category:</label>
+        <select id="category" name="category" required>
+            <option value="">Select Category</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category %>"><%= category %></option>
+            <% }); %>
+        </select>
+
+        <label for="academic_year">Academic Year:</label>
+        <select id="academic_year" name="academic_year" required>
+            <option value="">Select Academic Year</option>
+            <% academicYears.forEach(year => { %>
+                <option value="<%= year %>"><%= year %></option>
+            <% }); %>
+        </select>
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <form id="update-marks-form" method="POST" action="/update-marks">
+        <% if (students.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Team Name</th>
+                        <th>Proposal Presentation</th>
+                        <th>Progress Presentation</th>
+                        <th>Final Presentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.student_id %></td>
+                            <td><%= student.first_name %> <%= student.last_name %></td>
+                            <td><%= student.team_name %></td>
+                            <td>
+                                <input type="number" name="proposal_mark_<%= student.student_id %>" value="<%= student.proposal_mark %>">
+                            </td>
+                            <td>
+                                <input type="number" name="progress_mark_<%= student.student_id %>" value="<%= student.progress_mark %>">
+                            </td>
+                            <td>
+                                <input type="number" name="final_mark_<%= student.student_id %>" value="<%= student.final_mark %>">
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <button type="submit">Update Marks</button>
+        <% } else { %>
+            <p>No students found for the selected category and academic year.</p>
+        <% } %>
+    </form>
+
+    <script src="/path/to/your/js/scripts.js"></script> <!-- Add your JavaScript file -->
+</body>
+</html>

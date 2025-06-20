@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit-no" />
+    <title>Take Attendance</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f5f5f5; /* Light gray background */
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            padding: 20px;
+            text-align: center; /* Center-align content */
+        }
+
+        .meeting-card {
+            background-color: white; /* White card background */
+            border: 1px solid #dddddd; /* Light border */
+            border-radius: 10px; /* Rounded corners */
+            padding: 20px; /* Padding inside card */
+            margin-bottom: 20px; /* Space between cards */
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow */
+            transition: transform 0.3s; /* Smooth transition on hover */
+        }
+
+        .meeting-card:hover {
+            transform: scale(1.05); /* Slight scale on hover */
+            background-color: #f1f1f1; /* Slightly lighter on hover */
+        }
+
+        .meeting-details {
+            text-align: left; /* Left-align meeting details */
+        }
+
+        .attendance-form {
+            display: flex; /* Use flex layout */
+            justify-content: space-between; /* Space between elements */
+            align-items: center; /* Center alignment */
+        }
+
+        .attendance-toggle {
+            display: flex; /* Flex item */
+            align-items: center; /* Center alignment */
+            margin-right: 15px; /* Space on the right */
+        }
+
+        .attendance-label {
+            margin-left: 10px; /* Space between toggle and label */
+        }
+
+        .attendance-submit {
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 20px; /* Padding for button */
+            transition: background-color 0.3s; /* Smooth hover effect */
+        }
+
+        .attendance-submit.submit {
+            background-color: #007bff; /* Blue for submit button */
+            color: white; /* White text */
+        }
+
+        .attendance-submit.submit:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .attendance-submit.update {
+            background-color: #dc3545; /* Red for update button */
+            color: white; /* White text */
+        }
+
+        .attendance-submit.update:hover {
+            background-color: #b02a37; /* Darker red on hover */
+        }
+        
+        .view-attendance {
+            background-color: #28a745;
+            border-radius: 5px;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .view-attendance:hover {
+            background-color: #218838;
+        }
+
+        .btn-back {
+            background-color: #0056b3;
+            border-color: white;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: red;
+            border-color: #545b62;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Take Attendance</h1>
+        
+        <!-- Back to Dashboard Button -->
+        <div class="text-center mb-4">
+            <a href="/teacher-dashboard" class="btn btn-back">Back to Dashboard</a>
+        </div>
+
+        <!-- Loop through meetings and display in cards -->
+        <% meetings.forEach(function(meeting) { %>
+            <div class="meeting-card">
+                <div class="meeting-details">
+                    <h3>Meeting on <%= new Date(meeting.meeting_date).toDateString() %> at <%= meeting.meeting_time %></h3>
+                    <p><strong>Details:</strong> <%= meeting.meeting_details %></p>
+                </div>
+
+                <!-- Determine if attendance has been given -->
+                <form action="/take-attendance/<%= meeting.id %>" method="post" class="attendance-form">
+                    <div class="attendance-toggle">
+                        <input type="checkbox" name="attendance_leader" <%= attendanceRecords.find(record => record.student_id === team.team_leader_id && record.meeting_id === meeting.id && record.is_present) ? 'checked' : '' %> />
+                        <label class="attendance-label">Leader: Student <%= team.team_leader_id %></label>
+                    </div>
+                    <div class="attendance-toggle">
+                        <input type="checkbox" name="attendance_member2" <%= attendanceRecords.find(record => record.student_id === team.student_2_id && record.meeting_id === meeting.id && record.is_present) ? 'checked' : '' %> />
+                        <label class="attendance-label">Member 2: Student <%= team.student_2_id %></label>
+                    </div>
+                    <div class="attendance-toggle">
+                        <input type="checkbox" name="attendance_member3" <%= attendanceRecords.find(record => record.student_id === team.student_3_id && record.meeting_id === meeting.id && record.is_present) ? 'checked' : '' %> />
+                        <label class="attendance-label">Member 3: Student <%= team.student_3_id %></label>
+                    </div>
+
+                    <!-- Change button class based on whether attendance exists -->
+                    <button type="submit" class="attendance-submit <% if (attendanceRecords.find(record => record.meeting_id === meeting.id)) { %>update<% } else { %>submit<% } %>">
+                        <% if (attendanceRecords.find(record => record.meeting_id === meeting.id)) { %>Update Attendance<% } else { %>Submit Attendance<% } %>
+                    </button>
+                </form>
+            </div>
+        <% }); %>
+    </div>
+
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="SPL/DP Manager" />
+    <meta name="author" content="Author Name" />
+    <title><%= title %></title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="icons/iut-logo.jpeg" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #007bff;
+        }
+
+        .navbar-brand {
+            font-weight: 500;
+            font-size: 1.5rem;
+        }
+
+        .container h2 {
+            color: #343a40;
+            font-weight: 500;
+        }
+
+        table {
+            background-color: #f0f8ff; /* Change the table background color */
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            overflow: hidden;
+        }
+
+        table th,
+        table td {
+            border: none;
+            padding: 15px;
+        }
+
+        table thead th {
+            background: linear-gradient(45deg, #6a9cf2, #64a3f0); /* Change the table header color */
+            color: #ffffff; /* Change the table header text color */
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        table tbody td {
+            background-color: #f8f9fa;
+        }
+
+        table tbody tr:nth-child(odd) {
+            background-color: #e0eafc;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        table tbody tr:hover {
+            background-color: #d1e7ff;
+        }
+
+        table a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        table a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            font-weight: 400;
+            margin-bottom: 30px;
+        }
+
+        .footer {
+            background-color: #007bff;
+            padding: 30px 0;
+            color: #ffffff;
+            text-align: center;
+            margin-top: auto; /* Ensure the footer stays at the bottom */
+        }
+
+        .footer ul {
+            padding: 0;
+            list-style: none;
+        }
+
+        .footer ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        .footer ul li a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .footer ul li a:hover {
+            color: #adb5bd;
+        }
+
+
+        .btn-back {
+            background-color: #0056b3;
+            border-color: white;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px; /* Added margin-bottom to separate it from the form */
+            display: inline-block; /* Ensure it does not stretch */
+        }
+
+        .btn-back:hover {
+            background-color: red;
+            border-color: #545b62;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <img src="icons/iut-logo.jpeg" width="40" height="50" class="d-inline-block align-top" alt="">
+            <a class="navbar-brand" href="#">SPL/DP Manager</a>
+
+        </div>
+    </nav>
+
+    <!-- Team List Section -->
+    <section class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h2 class="text-center mb-4"><%= title %></h2>
+                <% if (messages.success) { %>
+                    <div class="alert alert-success" role="alert">
+                        <%= messages.success %>
+                    </div>
+                <% } %>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Team ID</th>
+                            <th>Team Name</th>
+                            <th>Team Leader</th>
+                            <th>2nd Member</th>
+                            <th>3rd Member</th>
+                            <th>Supervisor</th>
+                            <th>Academic Year</th>
+                            <% if (user.role !== 'teacher') { %>
+                                <th>Action</th>
+                            <% } %>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (user.role === 'teacher') { %>
+                            <% const teacherTeams = allTeams.filter(team => team.supervisor_id === user.id); %>
+                            <% teacherTeams.map((team, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= team.team_id %></td>
+                                    <td><%= team.team_name %></td>
+                                    <td><%= team.team_leader_id %></td>
+                                    <td><%= team.student_2_id %></td>
+                                    <td><%= team.student_3_id %></td>
+                                    <td><%= team.supervisor_id %></td>
+                                    <td><%= team.academic_year %></td>
+                                </tr>
+                            <% }); %>
+                        <% } else { %>
+                            <% allTeams.map((team, index) => { %>
+                                <tr>
+                                    <td><%= index + 1 %></td>
+                                    <td><%= team.team_id %></td>
+                                    <td><%= team.team_name %></td>
+                                    <td><%= team.team_leader_id %></td>
+                                    <td><%= team.student_2_id %></td>
+                                    <td><%= team.student_3_id %></td>
+                                    <td><%= team.supervisor_id %></td>
+                                    <td><%= team.academic_year %></td>
+                                    <% if (user.role !== 'teacher') { %>
+                                        <td>
+                                            <a href="/teams/<%= team.team_id %>/delete" class="text-danger">Delete</a>
+                                        </td>
+                                    <% } %>
+                                </tr>
+                            <% }); %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

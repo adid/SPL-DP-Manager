@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Marks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #007bff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #ffffff;
+            border-bottom: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .list-group-item {
+            border: none;
+            border-bottom: 1px solid #ddd;
+            padding: 15px;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        .list-group-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-group-item:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+
+        .list-group-item:hover {
+            background-color: #e9ecef;
+        }
+
+        .text-center {
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+        .category-label {
+            font-weight: 500;
+            color: #343a40;
+        }
+
+        .no-data {
+            font-size: 1.25rem;
+            color: #6c757d;
+            margin-top: 40px;
+        }
+
+        .btn-back {
+            background-color: #0056b3;
+            border-color: white;
+            color: white;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px; /* Added margin-bottom to separate it from the form */
+            display: inline-block; /* Ensure it does not stretch */
+        }
+
+        .btn-back:hover {
+            background-color: red;
+            border-color: #545b62;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">View Marks</h1>
+        
+        <!-- Back to Dashboard Button -->
+        <div class="text-center mb-4">
+            <a href="/teacher-dashboard" class="btn btn-back">Back to Dashboard</a>
+        </div>
+
+        <form action="/view-marks" method="GET" class="mb-4">
+            <div class="form-group">
+                <label for="categorySelect" class="category-label">Select Team Category:</label>
+                <select class="form-select" id="categorySelect" name="category">
+                    <option value="SPL-I">SPL-I</option>
+                    <option value="DP-I">DP-I</option>
+                    <option value="SPL-II">SPL-II</option>
+                    <option value="DP-II">DP-II</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">View Marks</button>
+        </form>
+        <% if (marksData.length > 0) { %>
+            <% marksData.forEach(team => { %>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <%= team.teamName %>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <% team.marks.forEach(mark => { %>
+                                <li class="list-group-item">
+                                    <span>Student ID: <%= mark.student_id %></span>
+                                    <span>Marks: <%= mark.mark %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-center no-data">No marks data available for the selected category.</p>
+        <% } %>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
